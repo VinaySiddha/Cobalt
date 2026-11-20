@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum QuoteStatus {
+  NEW
+  CONTACTED
+  ADVANCE_PAID
+  COMPLETED
+}
+
+model QuoteRequest {
+  id          String      @id @default(cuid())
+  reference   String      @unique
+  name        String
+  email       String
+  phone       String
+  company     String?
+  description String
+  timeline    String
+  total       Float
+  advance     Float
+  status      QuoteStatus @default(NEW)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  items       QuoteItem[]
+}
+
+model QuoteItem {
+  id        String       @id @default(cuid())
+  quoteId   String
+  service   String
+  size      String
+  price     Float
+  quote     QuoteRequest @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+
+  @@index([quoteId])
+}

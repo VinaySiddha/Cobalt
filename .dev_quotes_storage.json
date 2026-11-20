@@ -1,0 +1,81 @@
+[
+  {
+    "id": "dev_quote_001",
+    "reference": "COB-893K2A",
+    "name": "Sarah Jenkins",
+    "email": "sarah.j@acmetech.io",
+    "phone": "+1 (617) 555-0142",
+    "company": "Acme Tech Solutions",
+    "description": "We need a production Next.js customer portal with Stripe subscription billing, role-based auth, and automated ingestion of client telemetry data. We also need technical SEO audit for the public marketing site.",
+    "timeline": "standard",
+    "total": 10000,
+    "advance": 3000,
+    "status": "CONTACTED",
+    "createdAt": "2026-11-18T14:20:00.000Z",
+    "updatedAt": "2026-11-18T15:45:00.000Z",
+    "items": [
+      {
+        "id": "item_1",
+        "quoteId": "dev_quote_001",
+        "service": "Web App Development",
+        "size": "medium",
+        "price": 7500
+      },
+      {
+        "id": "item_2",
+        "quoteId": "dev_quote_001",
+        "service": "SEO",
+        "size": "medium",
+        "price": 2500
+      }
+    ]
+  },
+  {
+    "id": "dev_quote_002",
+    "reference": "COB-471V9X",
+    "name": "David Ramirez",
+    "email": "d.ramirez@vanguarddata.com",
+    "phone": "+1 (415) 555-0199",
+    "company": "Vanguard Data Systems",
+    "description": "Building custom Model Context Protocol (MCP) servers to allow internal Claude and Gemini agents to query our PostgreSQL inventory database securely with fine-grained access policies.",
+    "timeline": "fast",
+    "total": 6875,
+    "advance": 2063,
+    "status": "NEW",
+    "createdAt": "2026-11-19T09:12:00.000Z",
+    "updatedAt": "2026-11-19T09:12:00.000Z",
+    "items": [
+      {
+        "id": "item_3",
+        "quoteId": "dev_quote_002",
+        "service": "MCP Services",
+        "size": "medium",
+        "price": 5500
+      }
+    ]
+  },
+  {
+    "id": "dev_quote_003",
+    "reference": "COB-128M4Q",
+    "name": "Elena Rostova",
+    "email": "elena@novafinance.com",
+    "phone": "+1 (212) 555-0183",
+    "company": "Nova Financial Group",
+    "description": "Enterprise AI Governance audit for our internal LLM document summarization system. We require risk classification, PII leakage detection, and alignment with NIST AI RMF guidelines.",
+    "timeline": "standard",
+    "total": 6500,
+    "advance": 1950,
+    "status": "ADVANCE_PAID",
+    "createdAt": "2026-11-16T11:00:00.000Z",
+    "updatedAt": "2026-11-17T16:20:00.000Z",
+    "items": [
+      {
+        "id": "item_4",
+        "quoteId": "dev_quote_003",
+        "service": "AI Governance",
+        "size": "medium",
+        "price": 6500
+      }
+    ]
+  }
+]
