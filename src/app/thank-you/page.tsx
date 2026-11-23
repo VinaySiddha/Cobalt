@@ -2,9 +2,9 @@ import ThankYouClient from '@/components/ThankYouClient';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Quotation Confirmation',
+  title: 'Project Brief Confirmation',
   description:
-    'Your quotation request has been submitted to Cobalt. Review your reference ID and next steps.',
+    'Your project brief has been submitted to Cobalt. Review your reference ID and next steps.',
 };
 
 interface ThankYouPageProps {

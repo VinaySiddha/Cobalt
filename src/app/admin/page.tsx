@@ -5,8 +5,8 @@ import AdminLogin from '@/components/AdminLogin';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Admin Portal | Cobalt Quotation Management',
-  description: 'Manage and review submitted client quotes and status updates.',
+  title: 'Admin Portal | Cobalt Project Management',
+  description: 'Manage and review submitted project briefs and status updates.',
   robots: {
     index: false,
     follow: false,

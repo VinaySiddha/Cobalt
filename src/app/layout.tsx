@@ -1,23 +1,30 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { DM_Sans, Cormorant_Garamond } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-dm-sans',
+  display: 'swap',
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  variable: '--font-cormorant',
+  weight: ['400', '500', '600'],
   display: 'swap',
 });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://cobalt.tech'),
   title: {
-    default: 'Cobalt | Technology Services & Instant Quotation',
+    default: 'Cobalt | Technology Services',
     template: '%s | Cobalt',
   },
   description:
-    'Production-grade technology services: Web Apps, SEO, Data Analysis, AI Solutions, AI Governance, and MCP Services. Get an instant estimate online.',
+    'Production-grade technology services: Web Apps, SEO, Data Analysis, AI Solutions, AI Governance, and MCP Services.',
   keywords: [
     'Technology Services',
     'Web Development',
@@ -30,9 +37,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Cobalt Technology Services' }],
   openGraph: {
-    title: 'Cobalt | Technology Services & Instant Quotation',
+    title: 'Cobalt | Technology Services',
     description:
-      'Transparent scope, fixed-tier pricing, and direct technical execution. Select your services and receive an instant estimate.',
+      'Transparent scope and direct technical execution. Select your services and send a project brief to the engineering team.',
     url: 'https://cobalt.tech',
     siteName: 'Cobalt',
     locale: 'en_US',
@@ -50,8 +57,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="min-h-screen flex flex-col bg-white text-black antialiased selection:bg-[#113FCB] selection:text-white">
+    <html lang="en" className={`${dmSans.variable} ${cormorant.variable}`}>
+      <body className="min-h-screen flex flex-col antialiased selection:bg-lime-300/30 selection:text-lime-100">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

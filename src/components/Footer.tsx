@@ -1,133 +1,105 @@
 import Link from 'next/link';
 
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="bg-neutral-900 text-white border-t border-neutral-800 mt-auto">
+    <footer className="relative mt-auto border-t border-white/[0.06]">
+      {/* Top ambient glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-lime-300/30 to-transparent pointer-events-none" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-10 lg:gap-12">
+
           {/* Brand Column */}
-          <div className="space-y-4 md:col-span-1">
+          <div className="md:col-span-2 space-y-4">
             <Link
               href="/"
-              className="text-2xl font-black tracking-tight text-white flex items-baseline"
+              className="text-2xl font-black tracking-tight text-white flex items-baseline w-fit"
             >
-              Cobalt<span className="text-[#3b66ff] text-3xl leading-none">.</span>
+              Cobalt<span className="text-lime-300 text-3xl leading-none">.</span>
             </Link>
-            <p className="text-sm text-neutral-400 leading-relaxed">
+            <p className="text-sm text-slate-500 leading-relaxed max-w-xs">
               Engineered technology services for growing companies. Direct technical execution with transparent scoping and fixed-tier milestones.
             </p>
-            <div className="pt-2 text-xs text-neutral-500">
-              30% advance on approved scope. Work starts immediately upon confirmation.
+            <div className="flex items-center gap-2 pt-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-lime-300 animate-pulse" />
+              <span className="text-xs text-slate-600">Clear scope · Work starts with alignment</span>
             </div>
           </div>
 
-          {/* Services Column */}
+          {/* Services */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-4">
-              Services
-            </h3>
+            <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Services</h3>
             <ul className="space-y-2.5 text-sm">
-              <li>
-                <Link href="/services#web-app-development" className="text-neutral-300 hover:text-white transition-colors">
-                  Web App Development
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#seo" className="text-neutral-300 hover:text-white transition-colors">
-                  SEO Optimization
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#data-analysis" className="text-neutral-300 hover:text-white transition-colors">
-                  Data Analysis
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#ai-solutions" className="text-neutral-300 hover:text-white transition-colors">
-                  AI Solutions
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#ai-governance" className="text-neutral-300 hover:text-white transition-colors">
-                  AI Governance
-                </Link>
-              </li>
-              <li>
-                <Link href="/services#mcp-services" className="text-neutral-300 hover:text-white transition-colors">
-                  MCP Services
-                </Link>
-              </li>
+              {[
+                ['Web App Development', '/services#web-app-development'],
+                ['SEO Optimization', '/services#seo'],
+                ['Data Analysis', '/services#data-analysis'],
+                ['AI Solutions', '/services#ai-solutions'],
+                ['AI Governance', '/services#ai-governance'],
+                ['MCP Services', '/services#mcp-services'],
+              ].map(([label, href]) => (
+                <li key={href}>
+                  <Link href={href} className="text-slate-500 hover:text-slate-200 transition-colors">
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Quick Links Column */}
+          {/* Company */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-4">
-              Company
-            </h3>
+            <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Company</h3>
             <ul className="space-y-2.5 text-sm">
-              <li>
-                <Link href="/" className="text-neutral-300 hover:text-white transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/services" className="text-neutral-300 hover:text-white transition-colors">
-                  All Services
-                </Link>
-              </li>
-              <li>
-                <Link href="/quote" className="text-neutral-300 hover:text-white transition-colors">
-                  Get a Quote
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="text-neutral-300 hover:text-white transition-colors">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="/admin" className="text-neutral-400 hover:text-neutral-200 transition-colors text-xs">
-                  Owner Portal
-                </Link>
-              </li>
+              {[
+                ['Home', '/'],
+                ['Services', '/services'],
+                ['Plan a Project', '/quote'],
+                ['Contact', '/contact'],
+                ['Owner Portal', '/admin'],
+              ].map(([label, href]) => (
+                <li key={href}>
+                  <Link href={href} className="text-slate-500 hover:text-slate-200 transition-colors">
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Contact Details Column */}
+          {/* Contact */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-4">
-              Direct Contact
-            </h3>
-            <div className="space-y-3 text-sm text-neutral-300">
-              <p>
-                <span className="block text-xs text-neutral-500 uppercase tracking-wider font-semibold">General Inquiries</span>
-                <a href="mailto:contact@cobalt.tech" className="hover:text-white underline decoration-neutral-600 underline-offset-4">
+            <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Contact</h3>
+            <div className="space-y-3 text-sm">
+              <div>
+                <span className="block text-[11px] text-slate-600 uppercase tracking-wider font-semibold mb-0.5">Email</span>
+                <a href="mailto:contact@cobalt.tech" className="text-slate-400 hover:text-lime-300 transition-colors">
                   contact@cobalt.tech
                 </a>
-              </p>
-              <p>
-                <span className="block text-xs text-neutral-500 uppercase tracking-wider font-semibold">Phone</span>
-                <a href="tel:+18005550198" className="hover:text-white">
+              </div>
+              <div>
+                <span className="block text-[11px] text-slate-600 uppercase tracking-wider font-semibold mb-0.5">Phone</span>
+                <a href="tel:+18005550198" className="text-slate-400 hover:text-slate-200 transition-colors">
                   +1 (800) 555-0198
                 </a>
-              </p>
-              <p>
-                <span className="block text-xs text-neutral-500 uppercase tracking-wider font-semibold">Business Hours</span>
-                <span>Mon – Fri, 9:00 AM – 6:00 PM EST</span>
-              </p>
-              <p>
-                <span className="block text-xs text-neutral-500 uppercase tracking-wider font-semibold">Headquarters</span>
-                <span>100 Technology Square, Suite 400<br />Cambridge, MA 02139</span>
-              </p>
+              </div>
+              <div>
+                <span className="block text-[11px] text-slate-600 uppercase tracking-wider font-semibold mb-0.5">Hours</span>
+                <span className="text-slate-500">Mon – Fri · 9am – 6pm EST</span>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-neutral-800 flex flex-col sm:flex-row justify-between items-center text-xs text-neutral-500 gap-4">
-          <p>© 2026 Cobalt Technology Services LLC. All rights reserved.</p>
-          <p>Production engineering with 100% transparent pricing.</p>
+        <div className="mt-12 pt-6 border-t border-white/[0.05] flex flex-col sm:flex-row justify-between items-center text-xs text-slate-600 gap-3">
+          <p>© {year} Cobalt Technology Services. All rights reserved.</p>
+          <p className="flex items-center gap-1.5">
+            <span className="w-1 h-1 rounded-full bg-lime-300/60" />
+            Production engineering · 100% transparent scope
+          </p>
         </div>
       </div>
     </footer>

@@ -42,7 +42,7 @@ export default function AdminLogin() {
             Owner Admin Access
           </h1>
           <p className="text-xs text-neutral-500 mt-2">
-            Enter administrative password to view and manage quotation requests.
+            Enter administrative password to view and manage project briefs.
           </p>
         </div>
 

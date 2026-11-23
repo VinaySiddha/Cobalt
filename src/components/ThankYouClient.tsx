@@ -35,7 +35,7 @@ export default function ThankYouClient({ reference }: ThankYouClientProps) {
           Request Confirmed
         </span>
         <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-black mb-4">
-          Thank you. Your quotation request has been received.
+          Thank you. Your project brief has been received.
         </h1>
         <p className="text-lg text-neutral-600 max-w-2xl leading-relaxed mb-8">
           A confirmation has been sent to your email. Our team has received your full project specifications and is preparing a detailed review.
@@ -105,9 +105,9 @@ export default function ThankYouClient({ reference }: ThankYouClientProps) {
             <div className="text-sm font-black text-[#113FCB] uppercase tracking-wider mb-2">
               Phase 03
             </div>
-            <h3 className="font-bold text-base text-black mb-2">30% Advance Agreement</h3>
+            <h3 className="font-bold text-base text-black mb-2">Engagement Agreement</h3>
             <p className="text-neutral-600 text-sm leading-relaxed">
-              Upon mutual agreement on the exact scope and estimate, we issue an invoice for the 30% advance deposit.
+              After the scope review, we confirm responsibilities, milestones, and the delivery rhythm for the engagement.
             </p>
           </div>
 
@@ -117,7 +117,7 @@ export default function ThankYouClient({ reference }: ThankYouClientProps) {
             </div>
             <h3 className="font-bold text-base text-black mb-2">Project Kickoff</h3>
             <p className="text-neutral-600 text-sm leading-relaxed">
-              Sprint work starts immediately upon receipt of the advance. Remaining 70% balance is settled upon milestone completion.
+              Sprint work starts after alignment, with regular milestone reviews through completion.
             </p>
           </div>
         </div>

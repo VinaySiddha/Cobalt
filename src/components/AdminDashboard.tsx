@@ -4,7 +4,6 @@ import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { DBQuoteRequest } from '@/lib/db';
 import { QuoteStatus } from '@prisma/client';
-import { formatCurrency } from '@/config/pricing';
 import { updateQuoteStatusAction, logoutAdminAction } from '@/app/actions/admin';
 import {
   Search,
@@ -18,9 +17,9 @@ interface AdminDashboardProps {
 }
 
 const STATUS_OPTIONS = [
-  { value: 'NEW', label: 'New', color: 'bg-blue-100 text-blue-800 border-blue-300' },
+  { value: 'NEW', label: 'New', color: 'bg-lime-100 text-lime-800 border-lime-300' },
   { value: 'CONTACTED', label: 'Contacted', color: 'bg-amber-100 text-amber-800 border-amber-300' },
-  { value: 'ADVANCE_PAID', label: 'Advance Paid', color: 'bg-emerald-100 text-emerald-800 border-emerald-300' },
+  { value: 'ADVANCE_PAID', label: 'Approved', color: 'bg-emerald-100 text-emerald-800 border-emerald-300' },
   { value: 'COMPLETED', label: 'Completed', color: 'bg-neutral-100 text-neutral-800 border-neutral-300' },
 ] as const;
 
@@ -53,7 +52,6 @@ export default function AdminDashboard({ initialQuotes }: AdminDashboardProps) {
   const contactedCount = quotes.filter((q) => q.status === 'CONTACTED').length;
   const advancePaidCount = quotes.filter((q) => q.status === 'ADVANCE_PAID').length;
   const completedCount = quotes.filter((q) => q.status === 'COMPLETED').length;
-  const totalPipeline = quotes.reduce((acc, q) => acc + q.total, 0);
 
   // Status update handler
   const handleStatusChange = async (
@@ -92,7 +90,7 @@ export default function AdminDashboard({ initialQuotes }: AdminDashboardProps) {
               Owner Administration Portal
             </div>
             <h1 className="text-2xl sm:text-3xl font-black text-black tracking-tight">
-              Quotation Requests Management
+              Project Brief Management
             </h1>
           </div>
 
@@ -112,19 +110,19 @@ export default function AdminDashboard({ initialQuotes }: AdminDashboardProps) {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           <div className="bg-white border border-gray-200 p-5">
             <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 block">
-              Total Quotes
+              Total Briefs
             </span>
             <div className="text-2xl font-black text-black mt-1">{totalCount}</div>
             <div className="text-xs text-neutral-500 mt-1">
-              Pipeline: {formatCurrency(totalPipeline)}
+              Active project pipeline
             </div>
           </div>
 
-          <div className="bg-white border border-gray-200 p-5 border-l-4 border-l-blue-600">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-600 block">
+          <div className="bg-white border border-gray-200 p-5 border-l-4 border-l-lime-500">
+            <span className="text-xs font-bold uppercase tracking-wider text-lime-700 block">
               New (Pending)
             </span>
-            <div className="text-2xl font-black text-blue-700 mt-1">{newCount}</div>
+            <div className="text-2xl font-black text-lime-700 mt-1">{newCount}</div>
             <div className="text-xs text-neutral-500 mt-1">Awaiting first contact</div>
           </div>
 
@@ -138,10 +136,10 @@ export default function AdminDashboard({ initialQuotes }: AdminDashboardProps) {
 
           <div className="bg-white border border-gray-200 p-5 border-l-4 border-l-emerald-600">
             <span className="text-xs font-bold uppercase tracking-wider text-emerald-600 block">
-              Advance Paid
+              Scope Approved
             </span>
             <div className="text-2xl font-black text-emerald-700 mt-1">{advancePaidCount}</div>
-            <div className="text-xs text-neutral-500 mt-1">30% advance received</div>
+            <div className="text-xs text-neutral-500 mt-1">Ready for delivery</div>
           </div>
 
           <div className="bg-white border border-gray-200 p-5 border-l-4 border-l-neutral-700 col-span-2 md:col-span-1">
@@ -177,11 +175,10 @@ export default function AdminDashboard({ initialQuotes }: AdminDashboardProps) {
                 key={status}
                 type="button"
                 onClick={() => setStatusFilter(status)}
-                className={`px-3 py-1.5 border transition-colors cursor-pointer ${
-                  statusFilter === status
+                className={`px-3 py-1.5 border transition-colors cursor-pointer ${statusFilter === status
                     ? 'bg-[#113FCB] text-white border-[#113FCB]'
                     : 'bg-white text-neutral-700 border-gray-300 hover:bg-neutral-100'
-                }`}
+                  }`}
               >
                 {status.replace('_', ' ')}
               </button>
@@ -194,11 +191,11 @@ export default function AdminDashboard({ initialQuotes }: AdminDashboardProps) {
           {filteredQuotes.length === 0 ? (
             <div className="p-12 text-center">
               <FileText size={36} className="mx-auto text-neutral-300 mb-3" />
-              <p className="text-base font-bold text-black">No quotation requests found</p>
+              <p className="text-base font-bold text-black">No project briefs found</p>
               <p className="text-sm text-neutral-500 mt-1">
                 {searchQuery || statusFilter !== 'ALL'
                   ? 'Try adjusting your search query or status filter.'
-                  : 'New client quotes will appear here immediately.'}
+                  : 'New client briefs will appear here immediately.'}
               </p>
             </div>
           ) : (
@@ -208,8 +205,8 @@ export default function AdminDashboard({ initialQuotes }: AdminDashboardProps) {
                   <th className="py-3 px-4">Ref & Date</th>
                   <th className="py-3 px-4">Client</th>
                   <th className="py-3 px-4">Services</th>
-                  <th className="py-3 px-4 text-right">Total Est.</th>
-                  <th className="py-3 px-4 text-right">30% Advance</th>
+                  <th className="py-3 px-4 text-center">Delivery</th>
+                  <th className="py-3 px-4 text-center">Scope</th>
                   <th className="py-3 px-4 text-center">Status</th>
                   <th className="py-3 px-4 text-right">Actions</th>
                 </tr>
@@ -276,17 +273,14 @@ export default function AdminDashboard({ initialQuotes }: AdminDashboardProps) {
                         </div>
                       </td>
 
-                      {/* Total */}
-                      <td className="py-3.5 px-4 text-right font-bold text-black whitespace-nowrap">
-                        {formatCurrency(quote.total)}
+                      {/* Delivery */}
+                      <td className="py-3.5 px-4 text-center font-bold text-black whitespace-nowrap">
+                        {quote.timeline === 'fast' ? 'Fast' : 'Standard'}
                       </td>
 
-                      {/* 30% Advance */}
-                      <td className="py-3.5 px-4 text-right whitespace-nowrap">
-                        <span className="font-bold text-[#113FCB] block">
-                          {formatCurrency(quote.advance)}
-                        </span>
-                        <span className="text-[11px] text-neutral-500">30% Due</span>
+                      {/* Scope */}
+                      <td className="py-3.5 px-4 text-center whitespace-nowrap">
+                        <span className="font-bold text-lime-700 block">{quote.items.length} services</span>
                       </td>
 
                       {/* Status Dropdown */}
@@ -300,13 +294,12 @@ export default function AdminDashboard({ initialQuotes }: AdminDashboardProps) {
                               e.target.value as 'NEW' | 'CONTACTED' | 'ADVANCE_PAID' | 'COMPLETED'
                             )
                           }
-                          className={`text-xs font-bold uppercase tracking-wider py-1 px-2.5 border rounded-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#113FCB] ${
-                            currentStatusConfig.color
-                          }`}
+                          className={`text-xs font-bold uppercase tracking-wider py-1 px-2.5 border rounded-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#113FCB] ${currentStatusConfig.color
+                            }`}
                         >
                           <option value="NEW">NEW</option>
                           <option value="CONTACTED">CONTACTED</option>
-                          <option value="ADVANCE_PAID">ADVANCE PAID</option>
+                          <option value="ADVANCE_PAID">APPROVED</option>
                           <option value="COMPLETED">COMPLETED</option>
                         </select>
                       </td>
@@ -413,30 +406,24 @@ export default function AdminDashboard({ initialQuotes }: AdminDashboardProps) {
                       Scope Size: {item.size}
                     </span>
                   </div>
-                  <div className="font-bold text-neutral-900">
-                    {formatCurrency(item.price)}
-                  </div>
+                  <div className="font-bold text-neutral-900">{item.size} scope</div>
                 </div>
               ))}
             </div>
 
-            {/* Totals & Advance */}
-            <div className="bg-[#F0F4FF] border border-[#CDD9FF] p-4 text-sm mb-6 space-y-2">
+            {/* Delivery overview */}
+            <div className="bg-lime-50 border border-lime-200 p-4 text-sm mb-6 space-y-2">
               <div className="flex justify-between">
                 <span>Timeline Delivery:</span>
                 <span className="font-bold capitalize">{selectedQuote.timeline}</span>
               </div>
-              <div className="flex justify-between font-bold text-black text-base border-t border-[#CDD9FF] pt-2">
-                <span>Total Estimated Price:</span>
-                <span className="text-lg">{formatCurrency(selectedQuote.total)}</span>
-              </div>
-              <div className="flex justify-between text-[#113FCB] font-bold">
-                <span>30% Advance Due:</span>
-                <span>{formatCurrency(selectedQuote.advance)}</span>
+              <div className="flex justify-between font-bold text-black text-base border-t border-lime-200 pt-2">
+                <span>Services selected:</span>
+                <span className="text-lg">{selectedQuote.items.length}</span>
               </div>
               <div className="flex justify-between text-neutral-600 text-xs">
-                <span>70% Balance on Delivery:</span>
-                <span>{formatCurrency(selectedQuote.total - selectedQuote.advance)}</span>
+                <span>Next step:</span>
+                <span>Engineering review</span>
               </div>
             </div>
 
@@ -466,7 +453,7 @@ export default function AdminDashboard({ initialQuotes }: AdminDashboardProps) {
                 >
                   <option value="NEW">NEW</option>
                   <option value="CONTACTED">CONTACTED</option>
-                  <option value="ADVANCE_PAID">ADVANCE PAID</option>
+                  <option value="ADVANCE_PAID">APPROVED</option>
                   <option value="COMPLETED">COMPLETED</option>
                 </select>
               </div>

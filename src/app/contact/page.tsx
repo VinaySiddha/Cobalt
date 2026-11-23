@@ -10,158 +10,129 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="bg-white">
+    <div className="relative">
       {/* Page Header */}
-      <section className="border-b border-gray-200 py-16 sm:py-20 bg-neutral-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <div className="inline-block px-3 py-1 bg-[#F0F4FF] border border-[#CDD9FF] text-[#113FCB] text-xs font-semibold uppercase tracking-wider mb-4">
-              Direct Communication
-            </div>
-            <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-black mb-4">
-              Contact Cobalt
-            </h1>
-            <p className="text-lg text-neutral-600 leading-relaxed">
-              We operate without sales intermediaries. Speak directly with senior technical staff about your architecture, timeline, and requirements.
-            </p>
-          </div>
+      <section className="relative pt-32 pb-16 overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-lime-300/08 rounded-full blur-[90px] pointer-events-none" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="chip mx-auto w-fit mb-5">Direct Communication</div>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white mb-4">
+            Contact Cobalt
+          </h1>
+          <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
+            No sales intermediaries. Speak directly with senior technical staff about your architecture, timeline, and requirements.
+          </p>
         </div>
       </section>
 
       {/* Main Contact Grid */}
-      <section className="py-16 sm:py-24">
+      <section className="py-10 pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
             {/* Contact Details */}
-            <div className="lg:col-span-6 space-y-8">
-              <div>
-                <h2 className="text-2xl font-black tracking-tight text-black mb-2">
-                  Company Headquarters
-                </h2>
-                <p className="text-neutral-600 text-sm">
-                  Our core engineering and administrative team operates from Cambridge, Massachusetts.
-                </p>
-              </div>
-
-              <div className="space-y-6">
-                <div className="flex items-start gap-4 p-5 border border-gray-200">
-                  <Mail className="text-[#113FCB] shrink-0 mt-1" size={20} />
-                  <div>
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-500">
-                      Email Inquiries
-                    </h3>
-                    <a
-                      href="mailto:contact@cobalt.tech"
-                      className="text-lg font-bold text-black hover:text-[#113FCB] transition-colors mt-0.5 block"
-                    >
-                      contact@cobalt.tech
-                    </a>
-                    <p className="text-xs text-neutral-500 mt-1">
-                      Expected response within 1 business day.
-                    </p>
+            <div className="lg:col-span-6 space-y-4">
+              <div className="glass-card rounded-2xl border border-white/[0.07] overflow-hidden">
+                {[
+                  {
+                    icon: <Mail size={18} className="text-lime-300" />,
+                    label: 'Email Inquiries',
+                    value: 'contact@cobalt.tech',
+                    sub: 'Expected response within 1 business day.',
+                    href: 'mailto:contact@cobalt.tech',
+                  },
+                  {
+                    icon: <Phone size={18} className="text-lime-200" />,
+                    label: 'Direct Telephone',
+                    value: '+1 (800) 555-0198',
+                    sub: 'Toll-free in North America.',
+                    href: 'tel:+18005550198',
+                  },
+                  {
+                    icon: <MapPin size={18} className="text-emerald-200" />,
+                    label: 'Physical Address',
+                    value: 'Cobalt Technology Services LLC',
+                    sub: '100 Technology Square, Suite 400\nCambridge, MA 02139, United States',
+                    href: null,
+                  },
+                  {
+                    icon: <Clock size={18} className="text-lime-300" />,
+                    label: 'Operating Hours',
+                    value: 'Mon – Fri · 9:00 AM – 6:00 PM EST',
+                    sub: 'Emergency SLA support available for active retainer clients.',
+                    href: null,
+                  },
+                ].map((item, i) => (
+                  <div
+                    key={i}
+                    className={`flex items-start gap-4 p-5 sm:p-6 ${i < 3 ? 'border-b border-white/[0.06]' : ''}`}
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.07] flex items-center justify-center shrink-0">
+                      {item.icon}
+                    </div>
+                    <div>
+                      <p className="text-[11px] font-bold uppercase tracking-widest text-slate-500 mb-1">{item.label}</p>
+                      {item.href ? (
+                        <a href={item.href} className="text-base font-bold text-white hover:text-lime-300 transition-colors block">
+                          {item.value}
+                        </a>
+                      ) : (
+                        <p className="text-base font-bold text-white">{item.value}</p>
+                      )}
+                      <p className="text-xs text-slate-500 mt-0.5 whitespace-pre-line">{item.sub}</p>
+                    </div>
                   </div>
-                </div>
-
-                <div className="flex items-start gap-4 p-5 border border-gray-200">
-                  <Phone className="text-[#113FCB] shrink-0 mt-1" size={20} />
-                  <div>
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-500">
-                      Direct Telephone
-                    </h3>
-                    <a
-                      href="tel:+18005550198"
-                      className="text-lg font-bold text-black hover:text-[#113FCB] transition-colors mt-0.5 block"
-                    >
-                      +1 (800) 555-0198
-                    </a>
-                    <p className="text-xs text-neutral-500 mt-1">
-                      Toll-free in North America.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4 p-5 border border-gray-200">
-                  <MapPin className="text-[#113FCB] shrink-0 mt-1" size={20} />
-                  <div>
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-500">
-                      Physical Address
-                    </h3>
-                    <p className="text-base font-bold text-black mt-0.5">
-                      Cobalt Technology Services LLC
-                    </p>
-                    <p className="text-sm text-neutral-600 mt-0.5">
-                      100 Technology Square, Suite 400<br />
-                      Cambridge, MA 02139<br />
-                      United States
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4 p-5 border border-gray-200">
-                  <Clock className="text-[#113FCB] shrink-0 mt-1" size={20} />
-                  <div>
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-500">
-                      Operating Hours
-                    </h3>
-                    <p className="text-sm font-bold text-black mt-0.5">
-                      Monday through Friday: 9:00 AM – 6:00 PM EST
-                    </p>
-                    <p className="text-xs text-neutral-500 mt-0.5">
-                      Emergency SLA support available for active retainer clients.
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
 
-            {/* Quote Action Box & FAQ */}
-            <div className="lg:col-span-6 space-y-8">
-              <div className="bg-[#113FCB] text-white p-8 sm:p-10">
-                <span className="text-xs font-black uppercase tracking-widest text-blue-200 block mb-2">
-                  Fastest Route to Pricing
-                </span>
-                <h3 className="text-2xl sm:text-3xl font-black tracking-tight mb-4">
-                  Need a quote for an upcoming project?
-                </h3>
-                <p className="text-blue-100 text-sm leading-relaxed mb-6">
-                  Skip back-and-forth emails. Use our interactive estimator to select services, configure scope tiers, and get live estimates with a 30% advance schedule.
-                </p>
-                <Link
-                  href="/quote"
-                  className="inline-flex items-center gap-2 bg-white text-[#113FCB] font-bold px-6 py-3.5 text-sm hover:bg-neutral-100 transition-colors"
-                >
-                  <span>Build an Instant Quote</span>
-                  <ArrowRight size={16} />
-                </Link>
+            {/* Right Column */}
+            <div className="lg:col-span-6 space-y-4">
+              {/* Quote CTA */}
+              <div className="glass-card rounded-2xl border border-lime-300/25 p-7 sm:p-9 relative overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-lime-300/08 to-transparent pointer-events-none" />
+                <div className="relative">
+                  <div className="chip mb-4 w-fit">Fastest Path to a Plan</div>
+                  <h3 className="text-2xl sm:text-3xl font-black tracking-tight text-white mb-3">
+                    Need a plan for an upcoming project?
+                  </h3>
+                  <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                    Skip back-and-forth emails. Use our project planner to select services, configure scope tiers, and send a complete brief to the engineering team.
+                  </p>
+                  <Link
+                    href="/quote"
+                    className="btn-primary inline-flex items-center gap-2 text-sm"
+                  >
+                    Build a Project Brief
+                    <ArrowRight size={16} />
+                  </Link>
+                </div>
               </div>
 
-              {/* Policy Notes */}
-              <div className="border border-gray-200 p-8 space-y-6">
-                <h3 className="text-lg font-bold text-black border-b border-gray-200 pb-3">
+              {/* Engagement Standards */}
+              <div className="glass-card rounded-2xl border border-white/[0.07] p-7 sm:p-9">
+                <h3 className="text-base font-bold text-white pb-4 mb-5 border-b border-white/[0.06]">
                   Engagement Standards
                 </h3>
-
-                <div className="space-y-4 text-sm">
-                  <div>
-                    <strong className="block text-black font-semibold">Payment Terms:</strong>
-                    <span className="text-neutral-600">
-                      All projects require an agreed 30% advance deposit prior to sprint commencement. The remaining 70% is billed upon satisfactory milestone delivery.
-                    </span>
-                  </div>
-
-                  <div>
-                    <strong className="block text-black font-semibold">Confidentiality & NDAs:</strong>
-                    <span className="text-neutral-600">
-                      We routinely execute mutual Non-Disclosure Agreements (NDAs) before reviewing proprietary source code or confidential business data.
-                    </span>
-                  </div>
-
-                  <div>
-                    <strong className="block text-black font-semibold">Code Ownership:</strong>
-                    <span className="text-neutral-600">
-                      Clients retain 100% intellectual property ownership of all custom software, scripts, models, and documentation created during the engagement.
-                    </span>
-                  </div>
+                <div className="space-y-5">
+                  {[
+                    {
+                      title: 'Engagement Rhythm',
+                      desc: 'Every project begins with a clear scope review, shared milestones, and a delivery rhythm agreed by both teams.',
+                    },
+                    {
+                      title: 'Confidentiality & NDAs',
+                      desc: 'We routinely execute mutual NDAs before reviewing proprietary source code or confidential business data.',
+                    },
+                    {
+                      title: 'Code Ownership',
+                      desc: 'Clients retain 100% intellectual property ownership of all custom software, models, and documentation created during the engagement.',
+                    },
+                  ].map((item) => (
+                    <div key={item.title}>
+                      <span className="block text-xs font-bold text-slate-300 mb-1">{item.title}</span>
+                      <span className="text-xs text-slate-500 leading-relaxed">{item.desc}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>

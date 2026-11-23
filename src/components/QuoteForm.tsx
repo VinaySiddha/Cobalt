@@ -6,8 +6,6 @@ import {
   PRICING_CONFIG,
   ServiceSize,
   TimelineType,
-  calculateQuote,
-  formatCurrency,
 } from '@/config/pricing';
 import { submitQuoteAction } from '@/app/actions/quote';
 import {
@@ -51,11 +49,6 @@ export default function QuoteForm() {
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [generalError, setGeneralError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
-
-  // Calculate live price summary
-  const calculation = useMemo(() => {
-    return calculateQuote(selectedServices, timeline);
-  }, [selectedServices, timeline]);
 
   // Service toggle/addition handlers
   const handleToggleService = (serviceId: string) => {
@@ -128,7 +121,7 @@ export default function QuoteForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
+    <form onSubmit={handleSubmit} noValidate className="plans-form">
       {/* General Error Alert */}
       {generalError && (
         <div
@@ -160,15 +153,15 @@ export default function QuoteForm() {
         {/* Left Column: Form Fields */}
         <div className="lg:col-span-7 space-y-12">
           {/* Section 1: Services Selection */}
-          <div className="border border-gray-200 p-6 sm:p-8 bg-white">
+          <div className="plans-panel glass-card rounded-2xl p-6 sm:p-8">
             <div className="border-b border-gray-200 pb-4 mb-6">
-              <span className="text-xs font-black uppercase tracking-widest text-[#113FCB] block mb-1">
+              <span className="section-eyebrow block mb-1">
                 Step 1 of 3
               </span>
-              <h2 className="text-2xl font-black tracking-tight text-black">
+              <h2 className="text-2xl font-black tracking-tight text-white">
                 Select Services & Scope
               </h2>
-              <p className="text-neutral-600 text-sm mt-1">
+              <p className="text-cf-gray text-sm mt-1">
                 Select one or more services. Adjust project size for each to calibrate scope.
               </p>
             </div>
@@ -189,11 +182,10 @@ export default function QuoteForm() {
                 return (
                   <div
                     key={service.id}
-                    className={`border transition-all ${
-                      isSelected
-                        ? 'border-[#113FCB] bg-[#F0F4FF]/30'
-                        : 'border-gray-200 hover:border-neutral-400 bg-white'
-                    }`}
+                    className={`border transition-all ${isSelected
+                        ? 'border-lime-300 bg-lime-300/10'
+                        : 'border-white/15 hover:border-white/35 bg-white/5'
+                      }`}
                   >
                     {/* Header Row / Toggle */}
                     <div
@@ -202,36 +194,33 @@ export default function QuoteForm() {
                     >
                       <div className="flex items-start gap-3">
                         <div
-                          className={`w-5 h-5 rounded-sm border flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
-                            isSelected
-                              ? 'bg-[#113FCB] border-[#113FCB] text-white'
-                              : 'border-neutral-400 bg-white'
-                          }`}
+                          className={`w-5 h-5 rounded-sm border flex items-center justify-center shrink-0 mt-0.5 transition-colors ${isSelected
+                              ? 'bg-lime-300 border-lime-300 text-stone-950'
+                              : 'border-white/30 bg-transparent'
+                            }`}
                         >
                           {isSelected && <Check size={14} strokeWidth={3} />}
                         </div>
                         <div>
-                          <div className="font-bold text-base text-black flex items-center gap-2">
+                          <div className="font-bold text-base text-white flex items-center gap-2">
                             <span>{service.name}</span>
                           </div>
-                          <p className="text-neutral-600 text-xs mt-0.5 leading-relaxed">
+                          <p className="text-cf-gray text-xs mt-0.5 leading-relaxed">
                             {service.shortDescription}
                           </p>
                         </div>
                       </div>
 
                       <div className="text-right shrink-0 ml-4">
-                        <span className="text-xs text-neutral-500 block">From</span>
-                        <span className="text-sm font-bold text-black">
-                          {formatCurrency(service.sizes.small.price)}
-                        </span>
+                        <span className="text-xs text-[#777B6E] block">Scope</span>
+                        <span className="text-sm font-bold text-white">Available</span>
                       </div>
                     </div>
 
                     {/* Size Selector (Visible only when selected) */}
                     {isSelected && selectedItem && (
-                      <div className="px-4 pb-5 sm:px-5 border-t border-[#CDD9FF] pt-4 bg-[#F0F4FF]/50">
-                        <label className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-2">
+                      <div className="px-4 pb-5 sm:px-5 border-t border-lime-300/20 pt-4 bg-lime-300/5">
+                        <label className="block text-xs font-bold uppercase tracking-wider text-cf-gray mb-2">
                           Project Size for {service.name}:
                         </label>
                         <div className="grid grid-cols-3 gap-2">
@@ -243,11 +232,10 @@ export default function QuoteForm() {
                                 key={sizeKey}
                                 type="button"
                                 onClick={() => handleUpdateSize(service.id, sizeKey)}
-                                className={`p-2.5 text-left border rounded-sm transition-colors ${
-                                  isSizeActive
-                                    ? 'bg-[#113FCB] text-white border-[#113FCB]'
-                                    : 'bg-white text-black border-gray-300 hover:border-gray-500'
-                                }`}
+                                className={`p-2.5 text-left border rounded-sm transition-colors ${isSizeActive
+                                    ? 'bg-lime-300 text-stone-950 border-lime-300'
+                                    : 'bg-white/5 text-white border-white/20 hover:border-white/45'
+                                  }`}
                               >
                                 <div className="flex justify-between items-baseline">
                                   <span className="text-xs font-bold uppercase tracking-wider">
@@ -255,17 +243,16 @@ export default function QuoteForm() {
                                   </span>
                                 </div>
                                 <div
-                                  className={`text-sm font-extrabold mt-1 ${
-                                    isSizeActive ? 'text-white' : 'text-neutral-900'
-                                  }`}
+                                  className={`text-sm font-extrabold mt-1 ${isSizeActive ? 'text-stone-950' : 'text-white'
+                                    }`}
                                 >
-                                  {formatCurrency(sizeDetail.price)}
+                                  {sizeDetail.scopeSummary}
                                 </div>
                               </button>
                             );
                           })}
                         </div>
-                        <p className="text-xs text-neutral-600 mt-2 italic">
+                        <p className="text-xs text-cf-gray mt-2 italic">
                           {service.sizes[selectedItem.size].scopeSummary}
                         </p>
                       </div>
@@ -277,15 +264,15 @@ export default function QuoteForm() {
           </div>
 
           {/* Section 2: Delivery Timeline */}
-          <div className="border border-gray-200 p-6 sm:p-8 bg-white">
+          <div className="plans-panel glass-card rounded-2xl p-6 sm:p-8">
             <div className="border-b border-gray-200 pb-4 mb-6">
-              <span className="text-xs font-black uppercase tracking-widest text-[#113FCB] block mb-1">
+              <span className="section-eyebrow block mb-1">
                 Step 2 of 3
               </span>
-              <h2 className="text-2xl font-black tracking-tight text-black">
+              <h2 className="text-2xl font-black tracking-tight text-white">
                 Delivery Timeline
               </h2>
-              <p className="text-neutral-600 text-sm mt-1">
+              <p className="text-cf-gray text-sm mt-1">
                 Standard delivery follows our regular sprint cycles. Fast delivery expedites kickoff and dedicates engineering capacity.
               </p>
             </div>
@@ -299,18 +286,17 @@ export default function QuoteForm() {
                   <div
                     key={timelineKey}
                     onClick={() => setTimeline(timelineKey)}
-                    className={`border p-5 cursor-pointer rounded-sm transition-all ${
-                      isActive
-                        ? 'border-[#113FCB] bg-[#F0F4FF]/40 ring-1 ring-[#113FCB]'
-                        : 'border-gray-200 hover:border-gray-400 bg-white'
-                    }`}
+                    className={`border p-5 cursor-pointer rounded-sm transition-all ${isActive
+                        ? 'border-lime-300 bg-lime-300/10 ring-1 ring-lime-300'
+                        : 'border-white/15 hover:border-white/35 bg-white/5'
+                      }`}
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className="font-bold text-base text-black">
+                      <span className="font-bold text-base text-white">
                         {config.label}
                       </span>
                       {timelineKey === 'fast' && (
-                        <span className="text-xs font-bold px-2 py-0.5 bg-[#113FCB] text-white">
+                        <span className="text-xs font-bold px-2 py-0.5 bg-lime-300 text-stone-950">
                           +25%
                         </span>
                       )}
@@ -326,14 +312,14 @@ export default function QuoteForm() {
 
           {/* Section 3: Contact & Project Details */}
           <div className="border border-gray-200 p-6 sm:p-8 bg-white">
-            <div className="border-b border-gray-200 pb-4 mb-6">
-              <span className="text-xs font-black uppercase tracking-widest text-[#113FCB] block mb-1">
+            <div className="border-b border-white/10 pb-4 mb-6">
+              <span className="section-eyebrow block mb-1">
                 Step 3 of 3
               </span>
-              <h2 className="text-2xl font-black tracking-tight text-black">
+              <h2 className="text-2xl font-black tracking-tight text-white">
                 Contact & Requirements
               </h2>
-              <p className="text-neutral-600 text-sm mt-1">
+              <p className="text-cf-gray text-sm mt-1">
                 Where should we send your formal quote review?
               </p>
             </div>
@@ -343,7 +329,7 @@ export default function QuoteForm() {
                 <div>
                   <label
                     htmlFor="fullName"
-                    className="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1"
+                    className="block text-xs font-bold uppercase tracking-wider text-cf-gray mb-1"
                   >
                     Full Name <span className="text-red-600">*</span>
                   </label>
@@ -354,9 +340,8 @@ export default function QuoteForm() {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="e.g. Jane Doe"
-                    className={`w-full px-3.5 py-2.5 border text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#113FCB] ${
-                      fieldErrors.fullName ? 'border-red-600 bg-red-50/20' : 'border-gray-300'
-                    }`}
+                    className={`plans-input w-full px-3.5 py-2.5 border text-sm text-white focus:outline-none focus:ring-2 focus:ring-lime-300 ${fieldErrors.fullName ? 'border-red-600 bg-red-50/20' : 'border-white/20'
+                      }`}
                   />
                   {fieldErrors.fullName && (
                     <p className="text-red-600 text-xs mt-1">{fieldErrors.fullName}</p>
@@ -377,9 +362,8 @@ export default function QuoteForm() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="e.g. jane@company.com"
-                    className={`w-full px-3.5 py-2.5 border text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#113FCB] ${
-                      fieldErrors.email ? 'border-red-600 bg-red-50/20' : 'border-gray-300'
-                    }`}
+                    className={`plans-input w-full px-3.5 py-2.5 border text-sm text-white focus:outline-none focus:ring-2 focus:ring-lime-300 ${fieldErrors.email ? 'border-red-600 bg-red-50/20' : 'border-white/20'
+                      }`}
                   />
                   {fieldErrors.email && (
                     <p className="text-red-600 text-xs mt-1">{fieldErrors.email}</p>
@@ -402,9 +386,8 @@ export default function QuoteForm() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+1 (555) 000-0000"
-                    className={`w-full px-3.5 py-2.5 border text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#113FCB] ${
-                      fieldErrors.phone ? 'border-red-600 bg-red-50/20' : 'border-gray-300'
-                    }`}
+                    className={`plans-input w-full px-3.5 py-2.5 border text-sm text-white focus:outline-none focus:ring-2 focus:ring-lime-300 ${fieldErrors.phone ? 'border-red-600 bg-red-50/20' : 'border-white/20'
+                      }`}
                   />
                   {fieldErrors.phone && (
                     <p className="text-red-600 text-xs mt-1">{fieldErrors.phone}</p>
@@ -424,7 +407,7 @@ export default function QuoteForm() {
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
                     placeholder="Acme Corp"
-                    className="w-full px-3.5 py-2.5 border border-gray-300 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#113FCB]"
+                    className="plans-input w-full px-3.5 py-2.5 border border-white/20 text-sm text-white focus:outline-none focus:ring-2 focus:ring-lime-300"
                   />
                 </div>
               </div>
@@ -443,14 +426,13 @@ export default function QuoteForm() {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Outline your project objectives, target completion date, or any existing system details..."
-                  className={`w-full px-3.5 py-2.5 border text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#113FCB] ${
-                    fieldErrors.description ? 'border-red-600 bg-red-50/20' : 'border-gray-300'
-                  }`}
+                  className={`plans-input w-full px-3.5 py-2.5 border text-sm text-white focus:outline-none focus:ring-2 focus:ring-lime-300 ${fieldErrors.description ? 'border-red-600 bg-red-50/20' : 'border-white/20'
+                    }`}
                 />
                 {fieldErrors.description && (
                   <p className="text-red-600 text-xs mt-1">{fieldErrors.description}</p>
                 )}
-                <p className="text-xs text-neutral-500 mt-1">
+                <p className="text-xs text-[#777B6E] mt-1">
                   Minimum 10 characters. Plain language is preferred.
                 </p>
               </div>
@@ -458,88 +440,54 @@ export default function QuoteForm() {
           </div>
         </div>
 
-        {/* Right Column: Sticky Live Price Summary */}
+        {/* Right Column: Sticky project brief summary */}
         <div className="lg:col-span-5 lg:sticky lg:top-28">
-          <div className="border-2 border-black bg-white p-6 sm:p-8 shadow-sm">
-            <h3 className="text-xs font-black uppercase tracking-widest text-[#113FCB] mb-2">
-              Live Quotation Summary
+          <div className="plans-summary glass-card rounded-2xl p-6 sm:p-8 shadow-sm">
+            <h3 className="section-eyebrow mb-2">
+              Project brief
             </h3>
-            <div className="text-2xl font-black text-black pb-4 border-b border-gray-200">
-              Estimated Investment
+            <div className="text-2xl font-black text-white pb-4 border-b border-white/10">
+              Your selected scope
             </div>
 
-            {/* Line Items */}
-            <div className="py-4 space-y-3 border-b border-gray-200">
-              {calculation.items.map((item) => (
-                <div key={item.serviceId} className="flex justify-between items-start text-sm">
-                  <div>
-                    <span className="font-bold text-neutral-900 block">
-                      {item.serviceName}
-                    </span>
-                    <span className="text-xs text-neutral-500 capitalize">
-                      Scope: {item.sizeLabel}
-                    </span>
+            {/* Selected services */}
+            <div className="py-4 space-y-3 border-b border-white/10">
+              {selectedServices.map((item) => {
+                const service = PRICING_CONFIG.services.find((entry) => entry.id === item.serviceId);
+                return (
+                  <div key={item.serviceId} className="flex justify-between items-start text-sm gap-4">
+                    <span className="font-bold text-white">{service?.name}</span>
+                    <span className="text-xs text-cf-gray capitalize text-right">{item.size} scope</span>
                   </div>
-                  <div className="text-right">
-                    <span className="font-semibold text-neutral-900">
-                      {formatCurrency(item.basePrice)}
-                    </span>
-                  </div>
-                </div>
-              ))}
-
-              {calculation.timeline === 'fast' && (
-                <div className="flex justify-between items-center text-sm pt-2 text-[#113FCB]">
-                  <span className="text-xs font-bold uppercase tracking-wider">
-                    Fast Delivery Surge (+25%)
-                  </span>
-                  <span className="font-semibold">
-                    +{formatCurrency(calculation.timelineAdjustment)}
-                  </span>
-                </div>
-              )}
-            </div>
-
-            {/* Calculations Breakdown */}
-            <div className="py-4 space-y-3 border-b border-gray-200 text-sm">
-              <div className="flex justify-between items-center text-neutral-600">
-                <span>Subtotal:</span>
-                <span>{formatCurrency(calculation.subtotal)}</span>
-              </div>
-              <div className="flex justify-between items-center text-base font-bold text-black pt-1">
-                <span>Total Estimated Price:</span>
-                <span className="text-xl font-black text-black">
-                  {formatCurrency(calculation.total)}
-                </span>
+                );
+              })}
+              <div className="flex justify-between items-center text-sm pt-3 text-lime-200">
+                <span className="text-xs font-bold uppercase tracking-wider">Delivery rhythm</span>
+                <span className="font-semibold capitalize">{timeline}</span>
               </div>
             </div>
 
-            {/* 30% Advance Due & Balance */}
-            <div className="py-4 bg-[#F0F4FF] -mx-6 sm:-mx-8 px-6 sm:px-8 border-y border-[#CDD9FF] my-2">
-              <div className="flex justify-between items-center mb-1">
-                <span className="text-sm font-bold text-[#113FCB]">
-                  Advance Payment Due (30%):
-                </span>
-                <span className="text-xl font-black text-[#113FCB]">
-                  {formatCurrency(calculation.advance)}
-                </span>
-              </div>
-              <p className="text-xs text-neutral-600">
-                Required prior to work kickoff upon scope agreement.
+            <div className="py-4 border-b border-white/10">
+              <p className="text-sm font-semibold text-white mb-2">What happens next</p>
+              <p className="text-xs text-cf-gray leading-relaxed">
+                Send your requirements and the team will review your selected scope, clarify open questions, and return with the recommended engagement path.
               </p>
-
-              <div className="flex justify-between items-center text-xs text-neutral-600 mt-3 pt-2 border-t border-[#CDD9FF]">
-                <span>Remaining Balance (70%):</span>
-                <span className="font-bold text-neutral-900">
-                  {formatCurrency(calculation.balance)}
-                </span>
-              </div>
             </div>
 
-            {/* Disclaimer */}
-            <p className="text-xs text-neutral-500 italic mt-4 leading-relaxed">
-              {calculation.disclaimer}
-            </p>
+            <div className="py-4 space-y-3 text-sm">
+              <div className="flex items-center gap-3">
+                <span className="w-6 h-6 rounded-full bg-lime-300 text-stone-950 text-xs font-black flex items-center justify-center">01</span>
+                <span className="text-cf-gray">Engineering review</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="w-6 h-6 rounded-full bg-lime-300 text-stone-950 text-xs font-black flex items-center justify-center">02</span>
+                <span className="text-cf-gray">Scope confirmation</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="w-6 h-6 rounded-full bg-lime-300 text-stone-950 text-xs font-black flex items-center justify-center">03</span>
+                <span className="text-cf-gray">Sprint scheduling</span>
+              </div>
+            </div>
 
             {/* Submit Button */}
             <div className="mt-6">
@@ -551,19 +499,19 @@ export default function QuoteForm() {
                 {isPending ? (
                   <>
                     <Loader2 size={20} className="animate-spin" />
-                    <span>Processing Quote...</span>
+                    <span>Sending Project Brief...</span>
                   </>
                 ) : (
                   <>
-                    <span>Submit Quotation Request</span>
+                    <span>Send Project Brief</span>
                     <ArrowRight size={18} />
                   </>
                 )}
               </button>
             </div>
 
-            <div className="mt-4 pt-4 border-t border-gray-100 flex items-center gap-2 text-xs text-neutral-500">
-              <ShieldCheck size={16} className="text-[#113FCB] shrink-0" />
+            <div className="mt-4 pt-4 border-t border-white/10 flex items-center gap-2 text-xs text-[#777B6E]">
+              <ShieldCheck size={16} className="text-lime-300 shrink-0" />
               <span>We never sell data. You will hear from us within 1 business day.</span>
             </div>
           </div>
