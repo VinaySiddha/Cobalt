@@ -50,7 +50,7 @@ function readDevQuotes(): DBQuoteRequest[] {
     }
     const data = fs.readFileSync(DEV_DB_FILE, 'utf-8');
     const parsed = JSON.parse(data);
-    return parsed.map((q: any) => ({
+    return parsed.map((q: DBQuoteRequest) => ({
       ...q,
       createdAt: new Date(q.createdAt),
       updatedAt: new Date(q.updatedAt),

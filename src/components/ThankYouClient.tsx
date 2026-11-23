@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { Check, Copy, ArrowRight, Printer, PhoneCall, Mail } from 'lucide-react';
+import { Check, Copy, Printer, PhoneCall, Mail } from 'lucide-react';
 
 interface ThankYouClientProps {
   reference: string;

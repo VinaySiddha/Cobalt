@@ -27,7 +27,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Services List */}
-      <section className="py-16 sm:py-24">
+      <section id="capabilities" className="py-16 sm:py-24 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
           {PRICING_CONFIG.services.map((service, index) => (
             <div

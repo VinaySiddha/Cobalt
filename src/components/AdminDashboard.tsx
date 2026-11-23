@@ -3,18 +3,12 @@
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { DBQuoteRequest } from '@/lib/db';
+import { QuoteStatus } from '@prisma/client';
 import { formatCurrency } from '@/config/pricing';
 import { updateQuoteStatusAction, logoutAdminAction } from '@/app/actions/admin';
 import {
   Search,
-  Filter,
-  CheckCircle,
-  Clock,
-  DollarSign,
-  Briefcase,
   LogOut,
-  ExternalLink,
-  ChevronDown,
   X,
   FileText,
 } from 'lucide-react';
@@ -37,7 +31,7 @@ export default function AdminDashboard({ initialQuotes }: AdminDashboardProps) {
   const [statusFilter, setStatusFilter] = useState<string>('ALL');
   const [selectedQuote, setSelectedQuote] = useState<DBQuoteRequest | null>(null);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
 
   // Filtered quotes
   const filteredQuotes = quotes.filter((q) => {
@@ -72,10 +66,10 @@ export default function AdminDashboard({ initialQuotes }: AdminDashboardProps) {
       setUpdatingId(null);
       if (result.success) {
         setQuotes((prev) =>
-          prev.map((q) => (q.id === quoteId ? { ...q, status: newStatus as any } : q))
+          prev.map((q) => (q.id === quoteId ? { ...q, status: newStatus as QuoteStatus } : q))
         );
         if (selectedQuote && selectedQuote.id === quoteId) {
-          setSelectedQuote({ ...selectedQuote, status: newStatus as any });
+          setSelectedQuote({ ...selectedQuote, status: newStatus as QuoteStatus });
         }
       } else {
         alert(result.message || 'Status update failed.');

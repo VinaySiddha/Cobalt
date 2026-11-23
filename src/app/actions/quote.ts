@@ -123,7 +123,7 @@ export async function submitQuoteAction(
       success: true,
       reference,
     };
-  } catch (err: any) {
+  } catch (err: unknown) {
     console.error('Error submitting quote:', err);
     return {
       success: false,

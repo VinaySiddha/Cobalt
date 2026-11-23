@@ -12,12 +12,8 @@ import {
 import { submitQuoteAction } from '@/app/actions/quote';
 import {
   Check,
-  Plus,
-  Trash2,
   AlertCircle,
-  HelpCircle,
   Loader2,
-  Clock,
   ShieldCheck,
   ArrowRight,
 } from 'lucide-react';
@@ -85,14 +81,6 @@ export default function QuoteForm() {
     );
   };
 
-  const handleRemoveService = (serviceId: string) => {
-    if (selectedServices.length <= 1) {
-      setGeneralError('Please keep at least one service in your quote.');
-      return;
-    }
-    setSelectedServices(selectedServices.filter((s) => s.serviceId !== serviceId));
-  };
-
   // Submit handler
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -133,7 +121,7 @@ export default function QuoteForm() {
         if (result.reference) {
           router.push(`/thank-you?ref=${encodeURIComponent(result.reference)}`);
         }
-      } catch (err) {
+      } catch {
         setGeneralError('A network error occurred. Please check your connection and try again.');
       }
     });
