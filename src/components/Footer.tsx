@@ -4,10 +4,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative mt-auto border-t border-white/[0.06]">
-      {/* Top ambient glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[1px] bg-gradient-to-r from-transparent via-lime-300/30 to-transparent pointer-events-none" />
-
+    <footer className="relative mt-auto border-t border-white/10 bg-[#060807]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10 lg:gap-12">
 
@@ -15,33 +12,33 @@ export default function Footer() {
           <div className="md:col-span-2 space-y-4">
             <Link
               href="/"
-              className="text-2xl font-black tracking-tight text-white flex items-baseline w-fit"
+              className="flex items-center gap-2 text-white font-semibold text-xl tracking-tight w-fit"
             >
-              Cobalt<span className="text-lime-300 text-3xl leading-none">.</span>
+              <span className="text-[#c9ef4f] text-2xl leading-none">❖</span>
+              <span className="font-sans font-bold text-[#f5f4ed] tracking-tight">Cobalt</span>
             </Link>
-            <p className="text-sm text-slate-500 leading-relaxed max-w-xs">
-              Engineered technology services for growing companies. Direct technical execution with transparent scoping and fixed-tier milestones.
+            <p className="text-xs sm:text-sm text-[#787c6f] leading-relaxed max-w-xs">
+              AI-driven intelligence and financial workflow platform designed for high-performing founders, investors, and modern enterprises.
             </p>
-            <div className="flex items-center gap-2 pt-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-lime-300 animate-pulse" />
-              <span className="text-xs text-slate-600">Clear scope · Work starts with alignment</span>
+            <div className="flex items-center gap-2 pt-1 text-xs text-[#b6b8a9]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#c9ef4f] animate-pulse" />
+              <span>Institutional security · Real-time automation</span>
             </div>
           </div>
 
           {/* Services */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Services</h3>
-            <ul className="space-y-2.5 text-sm">
+            <h3 className="overline-tag mb-4">Intelligence</h3>
+            <ul className="space-y-2.5 text-xs">
               {[
-                ['Web App Development', '/services#web-app-development'],
-                ['SEO Optimization', '/services#seo'],
-                ['Data Analysis', '/services#data-analysis'],
-                ['AI Solutions', '/services#ai-solutions'],
-                ['AI Governance', '/services#ai-governance'],
-                ['MCP Services', '/services#mcp-services'],
+                ['Natural Language Queries', '/services#queries'],
+                ['Predictive Analysis', '/services#predictive'],
+                ['Smart Categorization', '/services#categorization'],
+                ['Cash Flow Analytics', '/services#cash-flow'],
+                ['Due Diligence Engine', '/services#due-diligence'],
               ].map(([label, href]) => (
                 <li key={href}>
-                  <Link href={href} className="text-slate-500 hover:text-slate-200 transition-colors">
+                  <Link href={href} className="text-[#787c6f] hover:text-[#f5f4ed] transition-colors">
                     {label}
                   </Link>
                 </li>
@@ -51,17 +48,17 @@ export default function Footer() {
 
           {/* Company */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Company</h3>
-            <ul className="space-y-2.5 text-sm">
+            <h3 className="overline-tag mb-4">Platform</h3>
+            <ul className="space-y-2.5 text-xs">
               {[
                 ['Home', '/'],
-                ['Services', '/services'],
-                ['Plan a Project', '/quote'],
-                ['Contact', '/contact'],
-                ['Owner Portal', '/admin'],
+                ['Services & Scope', '/services'],
+                ['Start Free Trial', '/quote'],
+                ['Contact Advisor', '/contact'],
+                ['Login Portal', '/admin'],
               ].map(([label, href]) => (
                 <li key={href}>
-                  <Link href={href} className="text-slate-500 hover:text-slate-200 transition-colors">
+                  <Link href={href} className="text-[#787c6f] hover:text-[#f5f4ed] transition-colors">
                     {label}
                   </Link>
                 </li>
@@ -71,34 +68,28 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Contact</h3>
-            <div className="space-y-3 text-sm">
+            <h3 className="overline-tag mb-4">Contact</h3>
+            <div className="space-y-3 text-xs text-[#b6b8a9]">
               <div>
-                <span className="block text-[11px] text-slate-600 uppercase tracking-wider font-semibold mb-0.5">Email</span>
-                <a href="mailto:contact@cobalt.tech" className="text-slate-400 hover:text-lime-300 transition-colors">
-                  contact@cobalt.tech
+                <span className="block text-[10px] text-[#787c6f] uppercase tracking-wider font-semibold mb-0.5">Direct Line</span>
+                <a href="mailto:advisor@cobalt.tech" className="text-[#f5f4ed] hover:text-[#c9ef4f] transition-colors">
+                  advisor@cobalt.tech
                 </a>
               </div>
               <div>
-                <span className="block text-[11px] text-slate-600 uppercase tracking-wider font-semibold mb-0.5">Phone</span>
-                <a href="tel:+18005550198" className="text-slate-400 hover:text-slate-200 transition-colors">
-                  +1 (800) 555-0198
-                </a>
-              </div>
-              <div>
-                <span className="block text-[11px] text-slate-600 uppercase tracking-wider font-semibold mb-0.5">Hours</span>
-                <span className="text-slate-500">Mon – Fri · 9am – 6pm EST</span>
+                <span className="block text-[10px] text-[#787c6f] uppercase tracking-wider font-semibold mb-0.5">Global Desk</span>
+                <span>Mon – Fri · 24/5 Concierge</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-6 border-t border-white/[0.05] flex flex-col sm:flex-row justify-between items-center text-xs text-slate-600 gap-3">
-          <p>© {year} Cobalt Technology Services. All rights reserved.</p>
-          <p className="flex items-center gap-1.5">
-            <span className="w-1 h-1 rounded-full bg-lime-300/60" />
-            Production engineering · 100% transparent scope
+        <div className="mt-14 pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center text-xs text-[#787c6f] gap-3">
+          <p>© {year} Cobalt Intelligence. All rights reserved.</p>
+          <p className="flex items-center gap-1.5 text-[11px]">
+            <span className="w-1 h-1 rounded-full bg-[#c9ef4f]" />
+            Engineered with editorial precision & institutional security
           </p>
         </div>
       </div>

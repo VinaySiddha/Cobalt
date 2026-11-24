@@ -6,13 +6,13 @@ import Footer from '@/components/Footer';
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
-  variable: '--font-dm-sans',
+  variable: '--font-sans-main',
   display: 'swap',
 });
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  variable: '--font-cormorant',
+  variable: '--font-serif-editorial',
   weight: ['400', '500', '600'],
   display: 'swap',
 });
@@ -58,7 +58,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${dmSans.variable} ${cormorant.variable}`}>
-      <body className="min-h-screen flex flex-col antialiased selection:bg-lime-300/30 selection:text-lime-100">
+      <body className="min-h-screen flex flex-col antialiased selection:bg-[#C9EF4F]/30 selection:text-[#C9EF4F]">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
