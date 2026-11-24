@@ -444,13 +444,12 @@ export default function HomePage() {
 
 
       {/* ========================================================================= */}
-      {/* 5. TESTIMONIALS: "What people say about Cobalt"                           */}
+      {/* 5. TESTIMONIALS: "What people say about Cobalt" (SCROLLING MARQUEE)       */}
       {/* ========================================================================= */}
-      <section className="py-20 lg:py-28 border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
+      <section className="py-20 lg:py-28 border-t border-white/10 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-14">
           {/* Heading */}
-          <div className="text-center max-w-2xl mx-auto mb-16">
+          <div className="text-center max-w-2xl mx-auto">
             <span className="overline-tag mb-3 block">HEAR REAL VOICE</span>
             <h2 className="text-3xl sm:text-5xl font-medium tracking-tight text-white mb-4">
               What people say
@@ -463,66 +462,229 @@ export default function HomePage() {
               See why thousands of users trust Cobalt to guide their financial decisions with precision, clarity.
             </p>
           </div>
+        </div>
 
-          {/* 4 Cards Row with distinctive gradient materials */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Scrolling Testimonial Marquees with Edge Fade Masks */}
+        <div className="relative w-full overflow-hidden marquee-mask space-y-5">
 
-            {/* Testimonial Card 1 (Golden/Amber) */}
-            <div className="rounded-[2rem] p-6 sm:p-7 border border-white/10 flex flex-col justify-between bg-gradient-to-b from-[#2b2413] via-[#1a1710] to-[#0c0a07] min-h-[340px]">
-              <p className="text-sm text-[#dced9a] font-normal leading-relaxed">
-                “Investing used to be intimidating. Cobalt has made my life so much easier. I can’t imagine going back.”
-              </p>
-              <div className="pt-6 border-t border-white/10">
-                <div className="text-xs font-semibold text-white">E. Software Engineer</div>
-                <div className="text-[10px] text-[#787c6f]">Verified Member</div>
-              </div>
-            </div>
-
-            {/* Testimonial Card 2 (Forest/Olive with portrait avatar of Joshua L.) */}
-            <div className="rounded-[2rem] p-6 sm:p-7 border border-[#c9ef4f]/30 flex flex-col justify-between bg-gradient-to-b from-[#223318] via-[#152010] to-[#0a0f07] min-h-[340px] shadow-xl">
-              <div>
-                {/* Circular Portrait */}
-                <div className="w-16 h-16 rounded-full overflow-hidden border-2 border-[#c9ef4f]/50 mb-5 shadow-lg">
-                  <div
-                    className="w-full h-full bg-cover bg-center"
-                    style={{
-                      backgroundImage: `url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80')`,
-                    }}
-                  />
+          {/* Row 1 — Scrolls Left */}
+          <div className="animate-marquee flex gap-5 py-2">
+            {[
+              {
+                quote: '“Cobalt has completely transformed the way I manage my finances. Its insights are incredibly accurate and easy to follow.”',
+                author: 'Joshua L.',
+                role: 'Small Business Owner',
+                roleColor: 'text-[#c9ef4f]',
+                avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+                gradient: 'from-[#223318] via-[#152010] to-[#0a0f07]',
+                border: 'border-[#c9ef4f]/35',
+                textColor: 'text-white',
+              },
+              {
+                quote: '“Thanks to Cobalt, I feel in control of my financial future. Highly recommended for anyone serious about smart investing.”',
+                author: 'Samantha K.',
+                role: 'Angel Investor',
+                roleColor: 'text-[#787c6f]',
+                avatar: null,
+                gradient: 'from-[#1b2142] via-[#12162a] to-[#080914]',
+                border: 'border-white/10',
+                textColor: 'text-[#b6b8a9]',
+              },
+              {
+                quote: '“Investing used to be intimidating. Cobalt made our portfolio modeling effortless and stress-free. I can’t imagine going back.”',
+                author: 'Elena R.',
+                role: 'Software Architect',
+                roleColor: 'text-[#787c6f]',
+                avatar: null,
+                gradient: 'from-[#2b2413] via-[#1a1710] to-[#0c0a07]',
+                border: 'border-white/10',
+                textColor: 'text-[#dced9a]',
+              },
+              {
+                quote: '“I never thought managing portfolio allocations could be this effortless. Transparent, proactive, and exceptionally designed.”',
+                author: 'David M.',
+                role: 'CTO & Co-Founder',
+                roleColor: 'text-[#787c6f]',
+                avatar: null,
+                gradient: 'from-[#102b2a] via-[#0b1c1b] to-[#050c0c]',
+                border: 'border-white/10',
+                textColor: 'text-[#b6b8a9]',
+              },
+              {
+                quote: '“Cobalt has completely transformed the way I manage my finances. Its insights are incredibly accurate and easy to follow.”',
+                author: 'Joshua L.',
+                role: 'Small Business Owner',
+                roleColor: 'text-[#c9ef4f]',
+                avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+                gradient: 'from-[#223318] via-[#152010] to-[#0a0f07]',
+                border: 'border-[#c9ef4f]/35',
+                textColor: 'text-white',
+              },
+              {
+                quote: '“Thanks to Cobalt, I feel in control of my financial future. Highly recommended for anyone serious about smart investing.”',
+                author: 'Samantha K.',
+                role: 'Angel Investor',
+                roleColor: 'text-[#787c6f]',
+                avatar: null,
+                gradient: 'from-[#1b2142] via-[#12162a] to-[#080914]',
+                border: 'border-white/10',
+                textColor: 'text-[#b6b8a9]',
+              },
+              {
+                quote: '“Investing used to be intimidating. Cobalt made our portfolio modeling effortless and stress-free. I can’t imagine going back.”',
+                author: 'Elena R.',
+                role: 'Software Architect',
+                roleColor: 'text-[#787c6f]',
+                avatar: null,
+                gradient: 'from-[#2b2413] via-[#1a1710] to-[#0c0a07]',
+                border: 'border-white/10',
+                textColor: 'text-[#dced9a]',
+              },
+              {
+                quote: '“I never thought managing portfolio allocations could be this effortless. Transparent, proactive, and exceptionally designed.”',
+                author: 'David M.',
+                role: 'CTO & Co-Founder',
+                roleColor: 'text-[#787c6f]',
+                avatar: null,
+                gradient: 'from-[#102b2a] via-[#0b1c1b] to-[#050c0c]',
+                border: 'border-white/10',
+                textColor: 'text-[#b6b8a9]',
+              },
+            ].map((t, idx) => (
+              <div
+                key={`t1-${idx}`}
+                className={`w-[320px] sm:w-[380px] shrink-0 rounded-[2rem] p-6 sm:p-7 border ${t.border} flex flex-col justify-between bg-gradient-to-b ${t.gradient} min-h-[300px] shadow-xl transition-transform hover:scale-[1.02] cursor-pointer`}
+              >
+                <div>
+                  {t.avatar && (
+                    <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-[#c9ef4f]/50 mb-4 shadow-lg">
+                      <div
+                        className="w-full h-full bg-cover bg-center"
+                        style={{ backgroundImage: `url('${t.avatar}')` }}
+                      />
+                    </div>
+                  )}
+                  <p className={`text-sm ${t.textColor} font-normal leading-relaxed`}>
+                    {t.quote}
+                  </p>
                 </div>
-                <p className="text-sm text-white font-normal leading-relaxed">
-                  “Cobalt has completely transformed the way I manage my finances. Its insights are incredibly accurate and easy to follow.”
-                </p>
-              </div>
 
-              <div className="pt-6 border-t border-white/10">
-                <div className="text-xs font-semibold text-white">Joshua L.</div>
-                <div className="text-[10px] text-[#c9ef4f]">Small Business Owner</div>
+                <div className="pt-5 border-t border-white/10">
+                  <div className="text-xs font-semibold text-white">{t.author}</div>
+                  <div className={`text-[10px] ${t.roleColor}`}>{t.role}</div>
+                </div>
               </div>
-            </div>
+            ))}
+          </div>
 
-            {/* Testimonial Card 3 (Royal Indigo/Blue) */}
-            <div className="rounded-[2rem] p-6 sm:p-7 border border-white/10 flex flex-col justify-between bg-gradient-to-b from-[#1b2142] via-[#12162a] to-[#080914] min-h-[340px]">
-              <p className="text-sm text-[#b6b8a9] font-normal leading-relaxed">
-                “Thanks to Cobalt, I feel in control of my financial future. Highly recommended for anyone serious about smart investing.”
-              </p>
-              <div className="pt-6 border-t border-white/10">
-                <div className="text-xs font-semibold text-white">Samantha K.</div>
-                <div className="text-[10px] text-[#787c6f]">Angel Investor</div>
+          {/* Row 2 — Scrolls Right */}
+          <div className="animate-marquee-reverse flex gap-5 py-2">
+            {[
+              {
+                quote: '“The natural language query engine understands complex multi-asset scenarios better than most traditional advisory desks.”',
+                author: 'Marcus V.',
+                role: 'VP of Engineering',
+                roleColor: 'text-[#c9ef4f]',
+                avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+                gradient: 'from-[#192415] via-[#10170d] to-[#080c07]',
+                border: 'border-white/10',
+                textColor: 'text-white',
+              },
+              {
+                quote: '“Instant due diligence and automated categorization saved our team over 20 hours every month. Flawless execution.”',
+                author: 'Sophia T.',
+                role: 'Private Wealth Principal',
+                roleColor: 'text-[#787c6f]',
+                avatar: null,
+                gradient: 'from-[#2c1d35] via-[#1c1222] to-[#0d0710]',
+                border: 'border-white/10',
+                textColor: 'text-[#dced9a]',
+              },
+              {
+                quote: '“From smart cash flow forecasting to milestone governance, Cobalt is by far the most advanced financial platform we have used.”',
+                author: 'Alexander P.',
+                role: 'Growth Director',
+                roleColor: 'text-[#787c6f]',
+                avatar: null,
+                gradient: 'from-[#152332] via-[#0e1620] to-[#070b10]',
+                border: 'border-white/10',
+                textColor: 'text-[#b6b8a9]',
+              },
+              {
+                quote: '“Real-time AI synchronization gave our leadership total clarity on capital runway. An indispensable platform for modern founders.”',
+                author: 'Claire W.',
+                role: 'Fintech Founder',
+                roleColor: 'text-[#c9ef4f]',
+                avatar: null,
+                gradient: 'from-[#232812] via-[#161a0b] to-[#090b05]',
+                border: 'border-white/10',
+                textColor: 'text-white',
+              },
+              {
+                quote: '“The natural language query engine understands complex multi-asset scenarios better than most traditional advisory desks.”',
+                author: 'Marcus V.',
+                role: 'VP of Engineering',
+                roleColor: 'text-[#c9ef4f]',
+                avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
+                gradient: 'from-[#192415] via-[#10170d] to-[#080c07]',
+                border: 'border-white/10',
+                textColor: 'text-white',
+              },
+              {
+                quote: '“Instant due diligence and automated categorization saved our team over 20 hours every month. Flawless execution.”',
+                author: 'Sophia T.',
+                role: 'Private Wealth Principal',
+                roleColor: 'text-[#787c6f]',
+                avatar: null,
+                gradient: 'from-[#2c1d35] via-[#1c1222] to-[#0d0710]',
+                border: 'border-white/10',
+                textColor: 'text-[#dced9a]',
+              },
+              {
+                quote: '“From smart cash flow forecasting to milestone governance, Cobalt is by far the most advanced financial platform we have used.”',
+                author: 'Alexander P.',
+                role: 'Growth Director',
+                roleColor: 'text-[#787c6f]',
+                avatar: null,
+                gradient: 'from-[#152332] via-[#0e1620] to-[#070b10]',
+                border: 'border-white/10',
+                textColor: 'text-[#b6b8a9]',
+              },
+              {
+                quote: '“Real-time AI synchronization gave our leadership total clarity on capital runway. An indispensable platform for modern founders.”',
+                author: 'Claire W.',
+                role: 'Fintech Founder',
+                roleColor: 'text-[#c9ef4f]',
+                avatar: null,
+                gradient: 'from-[#232812] via-[#161a0b] to-[#090b05]',
+                border: 'border-white/10',
+                textColor: 'text-white',
+              },
+            ].map((t, idx) => (
+              <div
+                key={`t2-${idx}`}
+                className={`w-[320px] sm:w-[380px] shrink-0 rounded-[2rem] p-6 sm:p-7 border ${t.border} flex flex-col justify-between bg-gradient-to-b ${t.gradient} min-h-[300px] shadow-xl transition-transform hover:scale-[1.02] cursor-pointer`}
+              >
+                <div>
+                  {t.avatar && (
+                    <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-[#c9ef4f]/50 mb-4 shadow-lg">
+                      <div
+                        className="w-full h-full bg-cover bg-center"
+                        style={{ backgroundImage: `url('${t.avatar}')` }}
+                      />
+                    </div>
+                  )}
+                  <p className={`text-sm ${t.textColor} font-normal leading-relaxed`}>
+                    {t.quote}
+                  </p>
+                </div>
+
+                <div className="pt-5 border-t border-white/10">
+                  <div className="text-xs font-semibold text-white">{t.author}</div>
+                  <div className={`text-[10px] ${t.roleColor}`}>{t.role}</div>
+                </div>
               </div>
-            </div>
-
-            {/* Testimonial Card 4 (Teal/Cyan) */}
-            <div className="rounded-[2rem] p-6 sm:p-7 border border-white/10 flex flex-col justify-between bg-gradient-to-b from-[#102b2a] via-[#0b1c1b] to-[#050c0c] min-h-[340px]">
-              <p className="text-sm text-[#b6b8a9] font-normal leading-relaxed">
-                “I never thought managing portfolio allocations could be this effortless. Transparent, proactive, and exceptionally designed.”
-              </p>
-              <div className="pt-6 border-t border-white/10">
-                <div className="text-xs font-semibold text-white">David M.</div>
-                <div className="text-[10px] text-[#787c6f]">CTO & Founder</div>
-              </div>
-            </div>
-
+            ))}
           </div>
 
         </div>
