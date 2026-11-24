@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { PRICING_CONFIG } from '@/config/pricing';
+import { PRICING_CONFIG, formatCurrency } from '@/config/pricing';
 import { ArrowRight, Check, Zap } from 'lucide-react';
 import type { Metadata } from 'next';
 
@@ -11,17 +11,22 @@ export const metadata: Metadata = {
 
 export default function ServicesPage() {
   return (
-    <div className="relative">
+    <div className="relative text-[#f5f4ed]">
       {/* Hero Header */}
-      <section className="relative pt-32 pb-16 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-150 h-75 bg-lime-300/8 rounded-full blur-[100px] pointer-events-none" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="chip mx-auto w-fit mb-5">Six Core Domains</div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white mb-4">
-            Services & Scope
+      <section className="relative pt-24 sm:pt-32 pb-16 overflow-hidden text-center">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#c9ef4f]/10 rounded-full blur-[140px] pointer-events-none" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <span className="overline-tag mb-4 block">SIX CORE DOMAINS</span>
+          <h1 className="text-4xl sm:text-6xl lg:text-[4.75rem] font-medium tracking-tight leading-[1.04] text-[#f5f4ed] mb-5">
+            Specialized capabilities
+            <br />
+            <span className="font-editorial text-[1.12em] font-normal text-[#f5f4ed]">
+              engineered for growth
+            </span>
           </h1>
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-            Clearly scoped. Transparent engagement levels. No retainers, no ambiguity — only what you agree on.
+          <p className="text-sm sm:text-base text-[#b6b8a9] max-w-2xl mx-auto leading-relaxed">
+            Clearly scoped. Transparent engagement tiers. No retainers, no ambiguity — only what you agree on.
           </p>
         </div>
       </section>
@@ -33,79 +38,85 @@ export default function ServicesPage() {
             <div
               key={service.id}
               id={service.id}
-              className="glass-card rounded-2xl border border-white/[0.07] overflow-hidden scroll-mt-24"
+              className="glass-card rounded-[2rem] border border-white/10 overflow-hidden scroll-mt-24"
             >
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
                 {/* Left: Service Overview */}
-                <div className="lg:col-span-5 p-7 sm:p-9 border-b lg:border-b-0 lg:border-r border-white/6">
-                  <div className="section-eyebrow mb-3">Service {String(index + 1).padStart(2, '0')}</div>
-                  <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-white mb-3">
-                    {service.name}
-                  </h2>
-                  <p className="text-slate-400 text-sm leading-relaxed mb-6">
-                    {service.fullDescription}
-                  </p>
+                <div className="lg:col-span-5 p-7 sm:p-9 border-b lg:border-b-0 lg:border-r border-white/10 flex flex-col justify-between">
+                  <div>
+                    <span className="overline-tag mb-2 block">
+                      Service {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <h2 className="text-2xl sm:text-3xl font-medium tracking-tight text-white mb-3">
+                      {service.name}
+                    </h2>
+                    <p className="text-[#b6b8a9] text-xs sm:text-sm leading-relaxed mb-6">
+                      {service.fullDescription}
+                    </p>
 
-                  <h3 className="text-[11px] font-bold uppercase tracking-widest text-slate-500 mb-3">
-                    Core Deliverables
-                  </h3>
-                  <ul className="space-y-2 mb-7">
-                    {service.deliverables.map((item, idx) => (
-                      <li key={idx} className="flex items-start gap-2.5 text-sm text-slate-300">
-                        <Check size={15} className="text-lime-300 shrink-0 mt-0.5" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
+                    <h3 className="text-[11px] font-bold uppercase tracking-widest text-[#787c6f] mb-3">
+                      Core Deliverables
+                    </h3>
+                    <ul className="space-y-2 mb-8">
+                      {service.deliverables.map((item, idx) => (
+                        <li key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#f5f4ed]">
+                          <Check size={15} className="text-[#c9ef4f] shrink-0 mt-0.5" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
                   <Link
                     href={`/quote?service=${service.id}`}
-                    className="btn-primary inline-flex items-center gap-2 text-sm"
+                    className="btn-primary-white py-3 px-6 text-xs font-semibold self-start"
                   >
-                    <span>Plan this service</span>
-                    <ArrowRight size={15} />
+                    <span>Configure in pricing calculator</span>
+                    <span>➔</span>
                   </Link>
                 </div>
 
                 {/* Right: Scope Tiers */}
-                <div className="lg:col-span-7 p-7 sm:p-9">
-                  <h3 className="text-[11px] font-bold uppercase tracking-widest text-slate-500 mb-5">
-                    Scope levels
+                <div className="lg:col-span-7 p-7 sm:p-9 bg-black/20">
+                  <h3 className="text-[11px] font-bold uppercase tracking-widest text-[#787c6f] mb-5">
+                    Scope Tiers & Pricing
                   </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-5">
                     {(['small', 'medium', 'large'] as const).map((tierKey) => {
                       const tier = service.sizes[tierKey];
                       const isRecommended = tierKey === 'medium';
                       return (
                         <div
                           key={tierKey}
-                          className={`rounded-xl p-5 flex flex-col justify-between border transition-all hover:border-lime-300/30 ${isRecommended
-                              ? 'border-lime-300/30 bg-lime-300/6'
-                              : 'border-white/6 bg-white/2'
-                            }`}
+                          className={`rounded-2xl p-5 flex flex-col justify-between border transition-all ${
+                            isRecommended
+                              ? 'border-[#c9ef4f]/40 bg-[#162113]/70 shadow-lg'
+                              : 'border-white/10 bg-white/5 hover:border-white/20'
+                          }`}
                         >
                           <div>
-                            <div className="flex justify-between items-center mb-3">
-                              <span className="text-[11px] font-bold uppercase tracking-widest text-slate-400">
+                            <div className="flex justify-between items-center mb-2">
+                              <span className="text-[11px] font-bold uppercase tracking-widest text-[#787c6f]">
                                 {tier.label}
                               </span>
                               {isRecommended && (
-                                <span className="text-[9px] font-bold uppercase tracking-wider bg-lime-300/20 text-lime-200 px-2 py-0.5 rounded-full border border-lime-300/20">
-                                  Popular
+                                <span className="text-[9px] font-bold uppercase tracking-wider bg-[#c9ef4f] text-[#060807] px-2 py-0.5 rounded-full">
+                                  Choice
                                 </span>
                               )}
                             </div>
-                            <div className="text-2xl font-black text-white mb-3">
-                              {tier.scopeSummary}
+                            <div className="text-2xl font-bold text-white mb-2">
+                              {formatCurrency(tier.price)}
                             </div>
-                            <p className="text-xs text-slate-500 leading-relaxed">
+                            <p className="text-xs text-[#b6b8a9] leading-relaxed">
                               {tier.scopeSummary}
                             </p>
                           </div>
-                          <div className="mt-5 pt-4 border-t border-white/5">
+
+                          <div className="mt-5 pt-3 border-t border-white/10">
                             <Link
                               href={`/quote?service=${service.id}&size=${tierKey}`}
-                              className="text-xs font-semibold text-lime-300 hover:text-lime-200 flex items-center justify-between transition-colors"
+                              className="text-xs font-semibold text-[#c9ef4f] hover:underline flex items-center justify-between"
                             >
                               <span>Select {tier.label}</span>
                               <ArrowRight size={12} />
@@ -116,12 +127,12 @@ export default function ServicesPage() {
                     })}
                   </div>
 
-                  <div className="rounded-xl p-3.5 bg-white/2 border border-white/4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-xs text-slate-500">
-                    <span className="flex items-center gap-1.5">
-                      <Zap size={11} className="text-lime-200" />
-                      Fast delivery available for focused launches
+                  <div className="rounded-xl p-3.5 bg-white/5 border border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-xs text-[#787c6f]">
+                    <span className="flex items-center gap-1.5 text-[#b6b8a9]">
+                      <Zap size={13} className="text-[#c9ef4f]" />
+                      Expedited sprint capacity available (+25% speed)
                     </span>
-                    <span className="font-semibold text-slate-400">Kickoff follows scope approval</span>
+                    <span className="font-semibold text-white">30% advance on approval</span>
                   </div>
                 </div>
               </div>
@@ -130,20 +141,22 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Bottom CTA */}
+      {/* Bottom CTA Banner */}
       <section className="pb-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative glass-card rounded-3xl p-10 sm:p-14 border border-lime-300/20 overflow-hidden text-center">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-100 h-40 bg-lime-300/12 blur-[70px] pointer-events-none" />
+          <div className="relative glass-card rounded-[2.5rem] p-10 sm:p-14 border border-white/15 overflow-hidden text-center">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[450px] h-[200px] bg-[#c9ef4f]/12 blur-[100px] pointer-events-none" />
             <div className="relative">
-              <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white mb-3">
-                Need a bundle of services?
+              <span className="overline-tag mb-3 block">CUSTOM ENGAGEMENTS</span>
+              <h2 className="text-3xl sm:text-5xl font-medium tracking-tight text-white mb-4">
+                Need a multi-service bundle?
               </h2>
-              <p className="text-slate-400 text-base mb-7 max-w-xl mx-auto">
-                Our planner lets you combine multiple services, choose sizes independently, and send a complete project brief instantly.
+              <p className="text-[#b6b8a9] text-sm sm:text-base mb-8 max-w-xl mx-auto leading-relaxed">
+                Our interactive quotation engine allows you to combine multiple services, customize individual tier sizes, and receive an instant advance breakdown.
               </p>
-              <Link href="/quote" className="btn-primary text-base px-8 py-4 inline-flex items-center gap-2">
-                Open Project Planner <ArrowRight size={18} />
+              <Link href="/quote" className="btn-primary-white py-3.5 px-8 text-sm font-semibold inline-flex items-center gap-2">
+                <span>Open Instant Pricing Calculator</span>
+                <span>➔</span>
               </Link>
             </div>
           </div>
