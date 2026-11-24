@@ -6,8 +6,6 @@ import {
   PRICING_CONFIG,
   ServiceSize,
   TimelineType,
-  calculateQuote,
-  formatCurrency,
 } from '@/config/pricing';
 import { submitQuoteAction } from '@/app/actions/quote';
 import {
@@ -55,11 +53,6 @@ export default function QuoteForm() {
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [generalError, setGeneralError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
-
-  // Real-time server-synced calculation
-  const calculation = useMemo(() => {
-    return calculateQuote(selectedServices, timeline);
-  }, [selectedServices, timeline]);
 
   // Quick bundle preset selector
   const handleSelectBundle = (bundleServices: SelectedServiceState[], bundleTimeline: TimelineType = 'standard') => {
@@ -140,7 +133,7 @@ export default function QuoteForm() {
     <form onSubmit={handleSubmit} noValidate className="space-y-12">
 
       {/* ========================================================================= */}
-      {/* 1. SIGNATURE PRESET BUNDLES (QUICK SELECTION)                             */}
+      {/* 1. SIGNATURE PRESET BUNDLES (NO RAW PRICES)                               */}
       {/* ========================================================================= */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
@@ -151,7 +144,7 @@ export default function QuoteForm() {
             </h3>
           </div>
           <span className="text-xs text-[#787c6f] hidden sm:block">
-            Click any package to auto-populate the calculator
+            Click any package to auto-populate scope selection
           </span>
         </div>
 
@@ -176,15 +169,15 @@ export default function QuoteForm() {
                   2 Sprints
                 </span>
               </div>
-              <div className="text-3xl font-medium text-white mb-2">
-                $4,700
+              <div className="text-2xl font-medium text-white mb-2">
+                Focused Launch Scope
               </div>
               <p className="text-xs text-[#787c6f] leading-relaxed mb-4">
                 Single-purpose MVP web app + foundational search engine indexation & schema architecture.
               </p>
             </div>
             <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-[#c9ef4f] font-semibold group-hover:underline">
-              <span>Select this preset</span>
+              <span>Select this scope package</span>
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </div>
           </div>
@@ -212,15 +205,15 @@ export default function QuoteForm() {
                   RECOMMENDED
                 </span>
               </div>
-              <div className="text-3xl font-medium text-white mb-2">
-                $21,500
+              <div className="text-2xl font-medium text-white mb-2">
+                Full Production Scope
               </div>
               <p className="text-xs text-[#b6b8a9] leading-relaxed mb-4">
                 Full-stack web platform + customized LLM automation workflows & business intelligence dashboards.
               </p>
             </div>
             <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-[#c9ef4f] font-semibold group-hover:underline">
-              <span>Select this preset</span>
+              <span>Select this scope package</span>
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </div>
           </div>
@@ -244,15 +237,15 @@ export default function QuoteForm() {
                   Audited
                 </span>
               </div>
-              <div className="text-3xl font-medium text-white mb-2">
-                $26,000
+              <div className="text-2xl font-medium text-white mb-2">
+                Enterprise Architecture
               </div>
               <p className="text-xs text-[#787c6f] leading-relaxed mb-4">
                 Enterprise compliance, automated agent protocol bridges (MCP), and comprehensive model security guardrails.
               </p>
             </div>
             <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-[#c9ef4f] font-semibold group-hover:underline">
-              <span>Select this preset</span>
+              <span>Select this scope package</span>
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </div>
           </div>
@@ -355,9 +348,9 @@ export default function QuoteForm() {
                       </div>
 
                       <div className="text-right shrink-0 ml-4">
-                        <span className="text-[10px] text-[#787c6f] uppercase block tracking-wider">Starts at</span>
+                        <span className="text-[10px] text-[#787c6f] uppercase block tracking-wider">Availability</span>
                         <span className="text-sm font-semibold text-white">
-                          {formatCurrency(service.sizes.small.price)}
+                          Immediate
                         </span>
                       </div>
                     </div>
@@ -387,8 +380,8 @@ export default function QuoteForm() {
                                   <span className="text-[11px] uppercase tracking-wider font-bold">
                                     {sizeDetail.label}
                                   </span>
-                                  <span className={`text-xs ${isSizeActive ? 'text-[#060807]' : 'text-[#c9ef4f]'}`}>
-                                    {formatCurrency(sizeDetail.price)}
+                                  <span className={`text-[10px] font-mono uppercase ${isSizeActive ? 'text-[#060807]' : 'text-[#c9ef4f]'}`}>
+                                    Tier {sizeKey === 'small' ? 'I' : sizeKey === 'medium' ? 'II' : 'III'}
                                   </span>
                                 </div>
                                 <div className={`text-[10px] leading-snug line-clamp-2 ${isSizeActive ? 'text-[#1c2419]' : 'text-[#787c6f]'}`}>
@@ -430,7 +423,7 @@ export default function QuoteForm() {
                 <div className="flex items-center justify-between mb-2">
                   <span className="font-semibold text-white text-sm">Standard Delivery</span>
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/10 text-[#b6b8a9]">
-                    1.0x Rate
+                    Standard Pace
                   </span>
                 </div>
                 <p className="text-xs text-[#787c6f] leading-relaxed">
@@ -453,7 +446,7 @@ export default function QuoteForm() {
                     Expedited Sprint
                   </span>
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#c9ef4f]/20 text-[#c9ef4f] font-bold">
-                    +25% Speed
+                    Priority Bandwidth
                   </span>
                 </div>
                 <p className="text-xs text-[#787c6f] leading-relaxed">
@@ -573,7 +566,7 @@ export default function QuoteForm() {
         </div>
 
 
-        {/* ── Right Column: Sticky Financial Investment Card (Synergeus Style) ── */}
+        {/* ── Right Column: Sticky Project Scope Overview (NO PRICES) ── */}
         <div className="lg:col-span-5 lg:sticky lg:top-24 space-y-4">
 
           {/* Main Card */}
@@ -585,63 +578,72 @@ export default function QuoteForm() {
             <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
               <div className="flex items-center gap-2">
                 <span className="text-[#c9ef4f] text-sm">❖</span>
-                <span className="overline-tag">INVESTMENT BREAKDOWN</span>
+                <span className="overline-tag">SCOPE & SPRINT SUMMARY</span>
               </div>
               <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-white/10 text-white uppercase tracking-wider">
-                Live Estimate
+                Live Brief
               </span>
             </div>
 
-            {/* Giant Total Calculation */}
+            {/* Scope Summary Badge */}
             <div className="mb-6">
               <span className="text-xs text-[#787c6f] uppercase tracking-wider block mb-1">
-                Total Estimated Sprint Value
+                Configured Engagement Plan
               </span>
-              <div className="text-4xl sm:text-5xl font-medium tracking-tight text-white">
-                {formatCurrency(calculation.total)}
+              <div className="text-2xl sm:text-3xl font-medium tracking-tight text-white">
+                {selectedServices.length} {selectedServices.length === 1 ? 'Service Selected' : 'Services Bundled'}
               </div>
-              {calculation.timelineAdjustment > 0 && (
-                <span className="inline-block text-[11px] text-[#c9ef4f] mt-1">
-                  Includes {formatCurrency(calculation.timelineAdjustment)} expedited allocation
-                </span>
-              )}
+              <span className="inline-block text-[11px] text-[#c9ef4f] mt-1 capitalize font-medium">
+                {timeline === 'fast' ? 'Expedited priority sprint cadence' : 'Standard milestone development cadence'}
+              </span>
             </div>
 
-            {/* Itemized Services List */}
+            {/* Itemized Services List (NO DOLLAR AMOUNTS) */}
             <div className="space-y-3 py-4 border-t border-b border-white/10 mb-6">
-              {calculation.items.map((item) => (
-                <div key={item.serviceId} className="flex justify-between items-start text-xs gap-3">
-                  <div>
-                    <span className="font-semibold text-white block">{item.serviceName}</span>
-                    <span className="text-[10px] text-[#787c6f] capitalize">{item.sizeLabel} tier</span>
+              {selectedServices.map((item) => {
+                const service = PRICING_CONFIG.services.find((s) => s.id === item.serviceId);
+                const sizeConfig = service?.sizes[item.size];
+                return (
+                  <div key={item.serviceId} className="flex justify-between items-start text-xs gap-3">
+                    <div>
+                      <span className="font-semibold text-white block">{service?.name}</span>
+                      <span className="text-[10px] text-[#787c6f] capitalize">{sizeConfig?.label} scope tier</span>
+                    </div>
+                    <span className="text-[11px] font-mono text-[#c9ef4f] capitalize bg-white/5 px-2 py-0.5 rounded">
+                      {item.size}
+                    </span>
                   </div>
-                  <span className="font-mono text-[#b6b8a9]">{formatCurrency(item.basePrice)}</span>
-                </div>
-              ))}
+                );
+              })}
 
               <div className="flex justify-between items-center text-xs pt-2 text-[#787c6f]">
-                <span>Timeline Delivery Rate</span>
-                <span className="font-mono text-white capitalize">{calculation.timelineLabel}</span>
+                <span>Delivery Cadence</span>
+                <span className="font-mono text-white capitalize">{timeline === 'fast' ? 'Expedited (+25% Speed)' : 'Standard Rhythm'}</span>
               </div>
             </div>
 
-            {/* 30% Advance Deposit Model Breakdown (The Signature Core Feature) */}
+            {/* Milestone Governance Model (NO RAW DOLLAR PRICES) */}
             <div className="rounded-2xl bg-black/40 border border-[#c9ef4f]/30 p-4 sm:p-5 mb-6 space-y-3">
               <div className="flex items-center justify-between">
                 <div>
                   <span className="text-xs font-bold text-[#c9ef4f] block uppercase tracking-wider">
-                    30% Advance Deposit
+                    30% Kickoff Advance
                   </span>
-                  <span className="text-[10px] text-[#787c6f]">Secures senior sprint allocation</span>
+                  <span className="text-[10px] text-[#787c6f]">Secures dedicated sprint allocation</span>
                 </div>
-                <div className="text-xl font-bold text-white">
-                  {formatCurrency(calculation.advance)}
+                <div className="text-xs font-mono font-semibold px-2.5 py-1 rounded bg-[#c9ef4f]/20 text-[#c9ef4f]">
+                  Phase I
                 </div>
               </div>
 
               <div className="flex items-center justify-between pt-2 border-t border-white/10 text-xs">
-                <span className="text-[#b6b8a9]">70% Balance on Delivery:</span>
-                <span className="font-mono text-white font-semibold">{formatCurrency(calculation.balance)}</span>
+                <div>
+                  <span className="text-white font-semibold block">70% Milestone Settlement</span>
+                  <span className="text-[10px] text-[#787c6f]">Released upon verified deliverables</span>
+                </div>
+                <div className="text-xs font-mono text-[#b6b8a9] bg-white/5 px-2 py-1 rounded">
+                  Phase II
+                </div>
               </div>
             </div>
 
@@ -654,11 +656,11 @@ export default function QuoteForm() {
               {isPending ? (
                 <>
                   <Loader2 size={16} className="animate-spin text-black" />
-                  <span>Processing Project Brief...</span>
+                  <span>Processing Scope Plan...</span>
                 </>
               ) : (
                 <>
-                  <span>Submit Quote & Reserve Sprint</span>
+                  <span>Request Scope Plan & Reserve Sprint</span>
                   <span className="w-5 h-5 rounded-full bg-[#060807] text-white flex items-center justify-center text-[10px]">
                     ➔
                   </span>
@@ -667,7 +669,7 @@ export default function QuoteForm() {
             </button>
 
             <p className="text-[11px] text-center text-[#787c6f] mt-4">
-              Zero upfront commitment. Final scope confirmed during technical intake call.
+              Zero upfront commitment. Exact schedule and milestones confirmed during technical intake call.
             </p>
           </div>
 

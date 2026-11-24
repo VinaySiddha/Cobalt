@@ -175,7 +175,7 @@ export default function HomePage() {
       {/* ========================================================================= */}
       {/* 3. ANALYTICS: "Smarter cash flow insights at a glance"                    */}
       {/* ========================================================================= */}
-      <section className="py-20 lg:py-28 border-t border-white/10">
+      <section id="work" className="py-20 lg:py-28 border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Heading */}
@@ -296,7 +296,7 @@ export default function HomePage() {
       {/* ========================================================================= */}
       {/* 4. AI INTELLIGENCE: "Your personal AI advisor" (THE 3 TALL CARDS)          */}
       {/* ========================================================================= */}
-      <section id="ai-intelligence" className="py-20 lg:py-28 border-t border-white/10">
+      <section id="gallery" className="py-20 lg:py-28 border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Header */}
@@ -446,7 +446,7 @@ export default function HomePage() {
       {/* ========================================================================= */}
       {/* 5. TESTIMONIALS: "What people say about Cobalt" (SCROLLING MARQUEE)       */}
       {/* ========================================================================= */}
-      <section className="py-20 lg:py-28 border-t border-white/10 overflow-hidden">
+      <section id="story" className="py-20 lg:py-28 border-t border-white/10 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-14">
           {/* Heading */}
           <div className="text-center max-w-2xl mx-auto">
